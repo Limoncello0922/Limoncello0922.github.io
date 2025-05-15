@@ -1,0 +1,169 @@
+Player One   
+Male | Student | 27 
+
+STR 80
+VAT 80
+SIZE 80
+DEX 80
+APP 80
+INT 80
+POW 80
+EDU 80
+LUCK 80
+
+Equip: Gun(伤害 1D10|回合 2)
+
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+
+---------------------------------------------
+Player One   
+Male | Student | 27 
+
+STR 80
+VAT 80
+SIZE 80
+DEX 80
+APP 80
+INT 80
+POW 80
+EDU 80
+LUCK 80
+
+Equip: Paper(1)
+
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+---------------------------------------------
+Player One
+Male | Student | 27 
+
+STR 80
+VAT 80
+SIZE 80
+DEX 80
+APP 80
+INT 80
+POW 80
+EDU 80
+LUCK 80
+
+Equip: 
+
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+
+---------------------------------------------
+Player One   
+Male | Student | 27 
+
+STR 80
+VAT 80
+SIZE 80
+DEX 80
+APP 80
+INT 80
+POW 80
+EDU 80
+LUCK 80
+
+Equip:
+
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+Ability One
+
+---------------------------------------------
+
+
