@@ -145,10 +145,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border-radius: 4px;
-            height: 60px; /* Fixed height for each button */
+            height: auto; /* 改为自适应高度 */
+            min-height: 60px; /* 设置最小高度 */
             display: flex;
-            align-items: center;
+            flex-direction: column; /* 改为纵向排列 */
+            justify-content: center; /* 垂直居中 */
+            align-items: flex-start; /* 左对齐 */
             border: 1px solid var(--background-color);
+            line-height: 1.3; /* 添加行高 */
         }
 
         .sidebar-nav button:hover {
@@ -608,44 +612,86 @@
         let autoRotateInterval;
         let userInteractionTimeout;
         let biographies = [];
+        let avatarConfig = {};
+
+        // 加载头像配置
+        async function loadAvatarConfig() {
+            try {
+                const response = await fetch('bio/avatars.json');
+                avatarConfig = await response.json();
+            } catch (error) {
+                console.error('Error loading avatar config:', error);
+            }
+        }
+
+        // 获取头像URL
+        async function getAvatarUrl(name) {
+            const baseName = name.split(/[（(]/)[0].trim(); // 获取中文名，支持中英文括号
+            const baseFileName = avatarConfig[baseName];
+            if (!baseFileName) return null;
+
+            // 移除可能存在的文件扩展名
+            const fileNameWithoutExt = baseFileName.split('.')[0];
+            
+            // 支持的图片格式
+            const extensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+            
+            // 尝试所有可能的文件格式
+            for (const ext of extensions) {
+                const fileName = fileNameWithoutExt + ext;
+                try {
+                    const response = await fetch(`images/avatars/${fileName}`);
+                    if (response.ok) {
+                        return `images/avatars/${fileName}`;
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+            return null;
+        }
 
         // Function to load biographies from the text file
         async function loadBiographies() {
             try {
+                // 首先加载头像配置
+                await loadAvatarConfig();
+
                 const response = await fetch('bio/people.txt');
                 const text = await response.text();
                 
-                console.log('Raw text from file:', text); // Debug log
-                
                 // Split by newlines and filter out empty lines
                 const lines = text.split('\n').filter(line => line.trim());
-                console.log('Number of lines after split:', lines.length); // Debug log
                 
                 // Parse the text file
                 biographies = lines.map((line, index) => {
-                    console.log(`Processing line ${index + 1}:`, line); // Debug log
-                    const parts = line.split(':');
+                    // 同时支持全角和半角冒号
+                    const parts = line.split(/[：:]/);
                     if (parts.length < 2) {
                         console.warn(`Line ${index + 1} has invalid format:`, line);
                         return null;
                     }
                     const name = parts[0].trim();
-                    const description = parts.slice(1).join(':').trim(); // Handle descriptions that might contain colons
-                    console.log(`Parsed entry ${index + 1}:`, { name, description }); // Debug log
+                    const description = parts.slice(1).join(':').trim();
                     return { name, description };
-                }).filter(entry => entry !== null); // Remove any null entries
-
-                console.log('Final biographies array:', biographies); // Debug log
-                console.log('Number of biographies:', biographies.length); // Debug log
+                }).filter(entry => entry !== null);
 
                 // Update the sidebar buttons
                 const sidebarNav = document.querySelector('.sidebar-nav');
-                sidebarNav.innerHTML = ''; // Clear existing buttons
+                sidebarNav.innerHTML = '';
                 
                 biographies.forEach((bio, index) => {
                     const li = document.createElement('li');
                     const button = document.createElement('button');
-                    button.textContent = bio.name;
+                    // 分割名字中的括号部分，同时支持中英文括号
+                    const nameParts = bio.name.match(/(.*?)[（(]([^）)]*)[）)]/) || [null, bio.name, ''];
+                    if (nameParts && nameParts[1]) {
+                        const mainName = nameParts[1].trim();
+                        const engName = nameParts[2] ? nameParts[2].trim() : '';
+                        button.innerHTML = `${mainName}<br>${engName}`;
+                    } else {
+                        button.textContent = bio.name;
+                    }
                     button.onclick = () => {
                         showBio(index);
                         handleUserInteraction();
@@ -667,7 +713,7 @@
             }
         }
 
-        function showBio(index) {
+        async function showBio(index) {
             if (!biographies[index]) return;
 
             // Update active button
@@ -680,14 +726,22 @@
             bioContent.classList.add('fade-out');
 
             // Wait for fade out, then update content and fade in
-            setTimeout(() => {
+            setTimeout(async () => {
+                const paragraphs = biographies[index].description.split('##').map(p => p.trim());
+                const avatarUrl = await getAvatarUrl(biographies[index].name);
+                
                 bioContent.innerHTML = `
-                    <div class="bio-image">${biographies[index].name.charAt(0)}</div>
+                    <div class="bio-image">
+                        ${avatarUrl ? 
+                            `<img src="${avatarUrl}" alt="${biographies[index].name}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">` :
+                            biographies[index].name.charAt(0)
+                        }
+                    </div>
                     <h2>${biographies[index].name}</h2>
-                    <p>${biographies[index].description}</p>
+                    ${paragraphs.map(p => `<p>${p}</p>`).join('')}
                 `;
                 bioContent.classList.remove('fade-out');
-            }, 300); // Match this with the CSS transition duration
+            }, 300);
 
             currentBioIndex = index;
         }
@@ -799,12 +853,15 @@
 
             // Wait for fade out, then update content and fade in
             setTimeout(() => {
+                // 将描述按##分段
+                const descriptionParagraphs = item.description.split('##').map(p => p.trim());
+                
                 itemContent.innerHTML = `
                     <div class="item-header">
                         <span class="item-icon">${item.icon}</span>
                         <h3 class="item-title">${item.name}</h3>
                     </div>
-                    <p class="item-description">${item.description}</p>
+                    ${descriptionParagraphs.map(p => `<p class="item-description">${p}</p>`).join('')}
                     ${item.details.length > 0 ? `
                         <div class="item-details">
                             <table>
@@ -861,6 +918,7 @@
                 document.getElementById('investigatorCards').innerHTML = '<div class="error-message">Error loading investigators.</div>';
             }
         }
+
         function renderInvestigatorCards(investigators) {
             const container = document.getElementById('investigatorCards');
             container.innerHTML = investigators.map(inv => `
