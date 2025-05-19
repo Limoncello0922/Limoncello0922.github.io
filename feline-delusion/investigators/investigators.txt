@@ -1,18 +1,19 @@
+#基本信息
 梁思琪   
 女 | 无业游民，暴走族 | 20 
-
-力量 80
-体质 80
-体型 80
-敏捷 80
-外貌 80
-智力 80
-意志 80
-教育 80
-幸运 80
-
+#属性
+力量 85
+体质 65
+体型 75
+敏捷 65
+外貌 50
+智力 75
+意志 65
+教育 70
+幸运 35
+#装备
 装备: 锤子(伤害 1D8 +DB|次数 1)，扳手(伤害 1D6 +DB|次数 1)，主厨刀(伤害 1D4 +2 +DB|次数 1)
-
+#技能
 伤害加值 1D4
 信用 10
 汽车驾驶 55
@@ -28,132 +29,145 @@
 妙手 40
 侦查 65
 追踪 50
-
 ---------------------------------------------
-Player One   
-Male | Student | 27 
-
-STR 80
-VAT 80
-SIZE 80
-DEX 80
-APP 80
-INT 80
-POW 80
-EDU 80
-LUCK 80
-
-Equip: Paper(1)
-
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
+#基本信息
+艾琳·海耶斯  
+女 | 电影演员 | 21 
+#属性
+力量 50
+体质 80
+体型 70
+敏捷 85
+外貌 80
+智力 80
+意志 70
+教育 55
+幸运 75
+#装备
+装备: 折叠刀(伤害 1D4 +DB|次数 1)
+#技能
+伤害加值 0
+信用 20
+表演 50
+话术 80
+乔装 45
+图书馆使用 80
+聆听 60
+说服 80
+心理学 80
+侦查 80
+闪避 42
 ---------------------------------------------
-Player One
-Male | Student | 27 
-
-STR 80
-VAT 80
-SIZE 80
-DEX 80
-APP 80
-INT 80
-POW 80
-EDU 80
-LUCK 80
-
-Equip: 
-
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-
+#基本信息
+切斯特·希尔   
+男 | 神秘学家 | 31 
+#属性
+力量 50
+体质 65
+体型 60
+敏捷 40
+外貌 75
+智力 75
+意志 50
+教育 70
+幸运 50
+#装备
+装备: 左轮手枪(伤害 1D10|次数 3)
+#技能
+伤害加值 0
+信用 10
+闪避 50
+话术 70
+手枪 60
+古埃及语 71
+图书馆使用 70
+聆听 60
+神秘学 80
+侦查 75
 ---------------------------------------------
-Player One   
-Male | Student | 27 
-
-STR 80
-VAT 80
-SIZE 80
-DEX 80
-APP 80
-INT 80
-POW 80
-EDU 80
-LUCK 80
-
-Equip:
-
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-
+#基本信息
+威廉·莱昂纳多   
+男 | 学生 | 27 
+#属性
+力量 45
+体质 80
+体型 55
+敏捷 60
+外貌 65
+智力 90
+意志 60
+教育 90
+幸运 65
+#装备
+装备: 自动手枪(伤害 1D10 +2|次数 3)，信号枪(伤害 1D10 +1D3 +燃烧|次数 2)
+#技能
+伤害加值 0
+信用 10
+闪避 80
+手枪 50
+急救 90
+阿拉伯语 30
+聆听 50
+说服 60
+精神分析 90
+心理学 35
+侦查 80
+潜行 60
+催眠 53
 ---------------------------------------------
-
-
+#基本信息
+克洛伊·温莎   
+女 | 外科医生 | 34 
+#属性
+力量 40
+体质 55
+体型 65
+敏捷 55
+外貌 65
+智力 80
+意志 55
+教育 70
+幸运 60
+#装备
+装备: 金属棍(伤害 1D8 +DB|次数 1)
+#技能
+伤害加值 0
+信用 50
+汽车驾驶 60
+闪避 57
+急救 80
+手枪 20
+拉丁语 51
+医学 71
+聆听 60
+说服 60
+药学 51
+游泳 70
+---------------------------------------------
+#基本信息
+阿黛尔·因特雷斯
+女 | 侦探 | 29 
+#属性
+力量 55
+体质 80
+体型 55
+敏捷 70
+外貌 50
+智力 60
+意志 80
+教育 85
+幸运 70
+#装备
+装备: 格洛克手枪(伤害 1D10|次数 3)
+#技能
+伤害加值 0
+信用 10
+闪避 35
+计算机使用 80
+手枪 80
+图书馆使用 80
+聆听 80
+心理学 80
+侦查 80
+追踪 80
+---------------------------------------------
