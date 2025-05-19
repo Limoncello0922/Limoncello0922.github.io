@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mid Century Myth</title>
+    <title>猫妄 - Feline Delusion</title>
     <style>
         :root {
             --primary-color: #E27D60;
@@ -1019,8 +1019,8 @@
 
     <header>
         <div class="container">
-            <h1>Mid Century Myth</h1>
-            <p class="subtitle">Where Design Meets Legend</p>
+            <h1>猫妄</h1>
+            <p class="subtitle">Feline Delusion</p>
         </div>
     </header>
 
@@ -1028,7 +1028,9 @@
         <section class="content-section">
             <h2>About</h2>
             <div class="decorative-element"></div>
-            <p>Welcome to Mid Century Myth, where we explore the intersection of mid-century modern design and timeless mythology. This space is dedicated to showcasing the beauty of clean lines, organic shapes, and the stories that have shaped our world.</p>
+            <div class="about-content">
+                <!-- Content will be loaded from introduction.txt -->
+            </div>
         </section>
 
         <!-- 地图 Section -->
@@ -1109,6 +1111,82 @@
         let searchableContent = [];
         let items = []; // Store inventory items globally
         let investigators = []; // Store investigators globally
+
+        // Load introduction text
+        async function loadIntroduction() {
+            try {
+                const response = await fetch('./introduction/introduction.txt');
+                const text = await response.text();
+                
+                // Split by ## for multiple paragraphs if needed
+                const paragraphs = text.split('##').map(p => p.trim());
+                
+                // Update the about content
+                const aboutContent = document.querySelector('.about-content');
+                aboutContent.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+
+                // Update searchable content
+                collectSearchableContent();
+            } catch (error) {
+                console.error('Error loading introduction:', error);
+                document.querySelector('.about-content').innerHTML = `
+                    <div class="error-message">
+                        Error loading introduction. Please try again later.
+                    </div>
+                `;
+            }
+        }
+
+        // Function to collect searchable content
+        function collectSearchableContent() {
+            searchableContent = [];
+
+            // About section
+            const aboutContent = document.querySelector('.about-content');
+            if (aboutContent) {
+                searchableContent.push({
+                    section: 'About',
+                    text: aboutContent.textContent,
+                    element: aboutContent.closest('section')
+                });
+            }
+
+            // Biographies
+            biographies.forEach(bio => {
+                searchableContent.push({
+                    section: '人物档案',
+                    text: `${bio.name} ${bio.description}`,
+                    element: document.querySelector('.biography-section')
+                });
+            });
+
+            // Inventory items - include both names and descriptions
+            const inventoryItems = document.querySelectorAll('.inventory-nav button');
+            inventoryItems.forEach(button => {
+                const itemName = button.textContent.trim();
+                const item = items.find(i => i.name === itemName.replace(button.querySelector('.item-icon').textContent.trim(), '').trim());
+                if (item) {
+                    searchableContent.push({
+                        section: '调查记录',
+                        text: `${item.name} ${item.description}`,
+                        element: document.querySelector('.inventory-section')
+                    });
+                }
+            });
+
+            // Investigator cards
+            investigators.forEach(inv => {
+                const cardText = `${inv.name} ${inv.meta} ${inv.attrs.map(attr => attr.join(' ')).join(' ')} ${
+                    inv.equip.map(eq => `${eq.name} ${eq.details}`).join(' ')
+                } ${inv.abilitiesLeft.join(' ')} ${inv.abilitiesRight.join(' ')}`;
+                
+                searchableContent.push({
+                    section: '调查员',
+                    text: cardText,
+                    element: document.querySelector('.investigator-section')
+                });
+            });
+        }
 
         // 加载头像配置
         async function loadAvatarConfig() {
@@ -1311,56 +1389,6 @@
 
             // Update searchable content after inventory is loaded
             collectSearchableContent();
-        }
-
-        function collectSearchableContent() {
-            searchableContent = [];
-
-            // About section
-            const aboutSection = document.querySelector('.content-section p');
-            if (aboutSection) {
-                searchableContent.push({
-                    section: 'About',
-                    text: aboutSection.textContent,
-                    element: aboutSection.closest('section')
-                });
-            }
-
-            // Biographies
-            biographies.forEach(bio => {
-                searchableContent.push({
-                    section: '人物档案',
-                    text: `${bio.name} ${bio.description}`,
-                    element: document.querySelector('.biography-section')
-                });
-            });
-
-            // Inventory items - include both names and descriptions
-            const inventoryItems = document.querySelectorAll('.inventory-nav button');
-            inventoryItems.forEach(button => {
-                const itemName = button.textContent.trim();
-                const item = items.find(i => i.name === itemName.replace(button.querySelector('.item-icon').textContent.trim(), '').trim());
-                if (item) {
-                    searchableContent.push({
-                        section: '调查记录',
-                        text: `${item.name} ${item.description}`,
-                        element: document.querySelector('.inventory-section')
-                    });
-                }
-            });
-
-            // Investigator cards
-            investigators.forEach(inv => {
-                const cardText = `${inv.name} ${inv.meta} ${inv.attrs.map(attr => attr.join(' ')).join(' ')} ${
-                    inv.equip.map(eq => `${eq.name} ${eq.details}`).join(' ')
-                } ${inv.abilitiesLeft.join(' ')} ${inv.abilitiesRight.join(' ')}`;
-                
-                searchableContent.push({
-                    section: '调查员',
-                    text: cardText,
-                    element: document.querySelector('.investigator-section')
-                });
-            });
         }
 
         function showItemDetails(item) {
@@ -1797,6 +1825,7 @@
         // Initialize the page
         window.onload = function() {
             Promise.all([
+                loadIntroduction(),
                 loadBiographies(),
                 loadInventory(),
                 loadInvestigators()

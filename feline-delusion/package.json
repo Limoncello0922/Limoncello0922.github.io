@@ -1,7 +1,7 @@
 {
-  "name": "mid-century-myth",
+  "name": "feline-delusion",
   "version": "1.0.0",
-  "description": "Mid Century Myth Website",
+  "description": "猫妄 (Feline Delusion) - COC TRPG Module Website",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
