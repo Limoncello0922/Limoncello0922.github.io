@@ -1,43 +1,33 @@
-Player One   
-Male | Student | 27 
+梁思琪   
+女 | 无业游民，暴走族 | 20 
 
-STR 80
-VAT 80
-SIZE 80
-DEX 80
-APP 80
-INT 80
-POW 80
-EDU 80
-LUCK 80
+力量 80
+体质 80
+体型 80
+敏捷 80
+外貌 80
+智力 80
+意志 80
+教育 80
+幸运 80
 
-Equip: Gun(伤害 1D10|回合 2)
+装备: 锤子(伤害 1D8 +DB|次数 1)，扳手(伤害 1D6 +DB|次数 1)，主厨刀(伤害 1D4 +2 +DB|次数 1)
 
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
-Ability One
+伤害加值 1D4
+信用 10
+汽车驾驶 55
+斗殴 80
+闪避 32
+急救 50
+恐吓 70
+中文 11
+图书馆使用 60
+聆听 65
+锁匠 31
+机械维修 60
+妙手 40
+侦查 65
+追踪 50
 
 ---------------------------------------------
 Player One   
