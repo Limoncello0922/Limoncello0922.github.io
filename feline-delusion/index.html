@@ -289,6 +289,7 @@
         .inventory-nav button.active {
             background-color: var(--primary-color);
             color: white;
+            border-color: var(--primary-color);
         }
 
         .item-icon {
@@ -371,78 +372,115 @@
         }
         .investigator-cards {
             display: flex;
-            gap: 0rem;
+            gap: 1.5rem;
             overflow-x: auto;
-            padding-bottom: 0;
-            align-items: flex-end;
+            padding: 1rem 0.5rem;
+            align-items: flex-start;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .investigator-cards::-webkit-scrollbar {
+            height: 8px;
+        }
+        .investigator-cards::-webkit-scrollbar-track {
+            background: var(--background-color);
+            border-radius: 4px;
+        }
+        .investigator-cards::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+        .investigator-cards::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
         }
         .investigator-card {
             min-width: 350px;
-            background: #fff;
-            border: 4px solid #ccc;
-            border-radius: 8px;
-            padding: 1.5rem 1.5rem 0 1.5rem !important;
-            margin-bottom: 1rem !important;
-            box-shadow: 4px 2px 4px rgba(0,0,0,0.06);
+            background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.1),
+                0 1px 3px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
-            font-size: 0.72rem;
-            transform: scale(0.99);
-            transform-origin: top left;
+            font-size: 0.85rem;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+        }
+        .investigator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        .investigator-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 8px 12px rgba(0,0,0,0.1),
+                0 3px 6px rgba(0,0,0,0.08);
         }
         .investigator-card h3 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        .investigator-inline-input {
-            width: 2.2em;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 0.72rem;
-            padding: 2em 0.2em;
-            margin: 0 1rem;
-            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
         .investigator-meta {
-            margin-bottom: 0.5rem;
-        }
-        .investigator-attr-table {
-            display: none;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            font-style: italic;
+            font-size: 0.9rem;
         }
         .investigator-attr-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            gap: 0;
-            background: #f3f3f3;
-            border-radius: 4px;
-            margin: 1rem 0;
+            gap: 1px;
+            background: var(--background-color);
+            border-radius: 8px;
+            margin: 1.5rem 0;
             overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
         .investigator-attr-cell {
-            padding: 0.7rem 0.5rem;
+            padding: 1rem 0.75rem;
             text-align: center;
             font-size: 1rem;
-            border: 1px solid #e0e0e0;
-            background: #f3f3f3;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
         }
-        .investigator-attr-cell:nth-child(-n+3) {
-            border-top: none;
+        .investigator-attr-cell:hover {
+            background: #f8f8f8;
         }
-        .investigator-attr-cell:nth-child(3n+1) {
-            border-left: none;
-        }
-        .investigator-attr-cell:nth-child(3n) {
-            border-right: none;
-        }
-        .investigator-attr-cell:nth-child(n+7) {
-            border-bottom: none;
+        .investigator-attr-cell span:first-child {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
         }
         .investigator-equip {
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
             position: relative;
+            line-height: 1.6;
+        }
+        .investigator-equip strong {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-right: 0.5rem;
         }
         .investigator-equip-list {
             display: inline;
@@ -452,23 +490,40 @@
             cursor: pointer;
             margin-right: 0.5em;
             display: inline-block;
+            color: var(--text-color);
+            transition: color 0.2s ease;
+        }
+        .investigator-equip-item:hover {
+            color: var(--primary-color);
         }
         .investigator-equip-tooltip {
             display: none;
             position: absolute;
             left: 50%;
-            top: -2.2em;
+            bottom: calc(100% + 10px);
             transform: translateX(-50%);
-            background: #fff;
-            color: #222;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 0.4em 0.8em;
-            font-size: 0.85em;
+            background: white;
+            color: var(--text-color);
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
             white-space: pre-line;
             z-index: 10;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-            min-width: 120px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 200px;
+            max-width: 300px;
+            line-height: 1.4;
+        }
+        .investigator-equip-tooltip::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid white;
         }
         .investigator-equip-item:hover .investigator-equip-tooltip {
             display: block;
@@ -476,6 +531,9 @@
         .investigator-abilities {
             display: flex;
             gap: 2rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--background-color);
         }
         .investigator-abilities ul {
             list-style: none;
@@ -484,8 +542,21 @@
             flex: 1;
         }
         .investigator-abilities li {
-            font-size: 0.8rem;
-            margin-bottom: 0.2rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        .investigator-abilities li::before {
+            content: '•';
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+            font-size: 1.2em;
+        }
+        .investigator-abilities li:hover {
+            color: var(--primary-color);
         }
         .contact-row {
             display: flex;
@@ -522,9 +593,430 @@
             color: #444;
             margin-bottom: 0.2rem;
         }
+
+        /* Search occurrence highlight styles */
+        @keyframes pulse-highlight {
+            0% { background-color: rgba(226, 125, 96, 0.3); }
+            50% { background-color: rgba(226, 125, 96, 0.1); }
+            100% { background-color: rgba(226, 125, 96, 0.3); }
+        }
+
+        .search-occurrence-highlight {
+            background-color: rgba(226, 125, 96, 0.3);
+            animation: pulse-highlight 2s ease-in-out infinite;
+            padding: 2px 0;
+            border-radius: 2px;
+        }
+
+        /* Search Box Styles */
+        .search-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.08),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-container::before {
+            content: '🔍';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(51, 51, 51, 0.6);
+            transition: color 0.3s ease;
+        }
+
+        .search-box:focus::placeholder {
+            color: rgba(51, 51, 51, 0.4);
+        }
+
+        .search-container:focus-within {
+            box-shadow: 
+                0 6px 16px rgba(226, 125, 96, 0.15),
+                0 2px 4px rgba(226, 125, 96, 0.12),
+                inset 0 0 0 1px rgba(226, 125, 96, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .search-results {
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 0 0 12px 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .search-results.active {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-result-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background-color: rgba(226, 125, 96, 0.08);
+        }
+
+        .search-result-section {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .search-result-section::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .search-result-text {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+
+        .search-result-highlight {
+            background-color: rgba(226, 125, 96, 0.2);
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .no-results {
+            padding: 16px;
+            text-align: center;
+            color: var(--accent-color);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Update mobile styles for search */
+        @media screen and (max-width: 768px) {
+            .search-container {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 40px);
+                max-width: 400px;
+                border-radius: 12px;
+            }
+
+            .search-container:focus-within {
+                transform: translate(-50%, -1px);
+            }
+
+            .search-results {
+                max-height: 60vh;
+                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+            }
+
+            .search-results.active {
+                animation: slideUp 0.2s ease-out;
+            }
+
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2rem 0;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            /* Adjust biography section for mobile */
+            .biography-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+            }
+
+            .bio-content {
+                padding: 1rem;
+            }
+
+            .bio-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            /* Adjust inventory section for mobile */
+            .inventory-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .inventory-sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+            }
+
+            .item-content {
+                padding-left: 0;
+                border-left: none;
+                border-top: 2px solid var(--background-color);
+                padding-top: 1rem;
+            }
+
+            /* Adjust investigator cards for mobile */
+            .investigator-cards {
+                gap: 1rem;
+                padding: 0.5rem;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .investigator-card {
+                min-width: calc(100% - 2rem);
+                padding: 1.5rem;
+                margin: 0 1rem;
+                font-size: 0.8rem;
+            }
+
+            .investigator-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .investigator-attr-grid {
+                margin: 1rem 0;
+            }
+
+            .investigator-attr-cell {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .investigator-abilities {
+                gap: 1rem;
+            }
+
+            .investigator-abilities li {
+                font-size: 0.8rem;
+            }
+
+            /* Add swipe hint for horizontal scrolling */
+            .investigator-section::after {
+                content: '← 左右滑动查看更多 →';
+                display: block;
+                text-align: center;
+                padding: 0.5rem;
+                color: var(--accent-color);
+                font-size: 0.8rem;
+                font-style: italic;
+            }
+        }
+
+        /* Additional adjustments for very small screens */
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .bio-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .investigator-card {
+                min-width: calc(100% - 1rem);
+                margin: 0 0.5rem;
+                padding: 1rem;
+            }
+
+            .investigator-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .investigator-attr-cell {
+                padding: 0.5rem 0.25rem;
+                font-size: 0.8rem;
+            }
+
+            .investigator-equip {
+                font-size: 0.8rem;
+            }
+
+            /* Adjust tooltip position for better mobile visibility */
+            .investigator-equip-tooltip {
+                left: 0;
+                right: 0;
+                transform: none;
+                min-width: auto;
+                max-width: none;
+                bottom: calc(100% + 5px);
+            }
+
+            .investigator-equip-tooltip::after {
+                left: 20px;
+                transform: none;
+            }
+        }
+
+        /* Ensure touch scrolling works smoothly */
+        @media (hover: none) and (pointer: coarse) {
+            .sidebar-nav,
+            .inventory-nav,
+            .investigator-cards {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .investigator-card {
+                touch-action: pan-x;
+            }
+        }
+
+        /* Prevent text selection during card swipe */
+        @media (pointer: coarse) {
+            .investigator-card {
+                user-select: none;
+                -webkit-user-select: none;
+            }
+        }
+
+        /* Add map styles */
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .map-stack {
+            position: relative;
+            padding-bottom: 10px;
+            padding-right: 10px;
+        }
+
+        .map-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .map-image.top {
+            position: relative;
+            z-index: 2;
+        }
+
+        .map-image.bottom {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 0;
+            opacity: 0.7;
+            transform: scale(0.98);
+            z-index: 1;
+        }
+
+        .map-container:hover .map-image.top {
+            transform: translateY(-5px);
+        }
+
+        .map-container:hover .map-image.bottom {
+            transform: scale(0.97) translateY(5px);
+        }
     </style>
 </head>
 <body>
+    <!-- Add Search Box -->
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="搜索内容..." />
+        <div class="search-results"></div>
+    </div>
+
     <header>
         <div class="container">
             <h1>Mid Century Myth</h1>
@@ -543,8 +1035,11 @@
         <section class="content-section" id="map-section">
             <h2>地图</h2>
             <div class="decorative-element"></div>
-            <div style="text-align:center;">
-                <img src="./map/map.png" alt="地图" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.10); margin: 1rem 0;" />
+            <div class="map-container">
+                <div class="map-stack">
+                    <img src="./map/main_map.png" alt="主地图" class="map-image top" onerror="this.src='./map/main_map.jpg'">
+                    <img src="./map/current_map.png" alt="当前地图" class="map-image bottom" onerror="this.src='./map/current_map.jpg'">
+                </div>
             </div>
         </section>
 
@@ -609,10 +1104,11 @@
 
     <script>
         let currentBioIndex = 0;
-        let autoRotateInterval;
-        let userInteractionTimeout;
         let biographies = [];
         let avatarConfig = {};
+        let searchableContent = [];
+        let items = []; // Store inventory items globally
+        let investigators = []; // Store investigators globally
 
         // 加载头像配置
         async function loadAvatarConfig() {
@@ -694,7 +1190,6 @@
                     }
                     button.onclick = () => {
                         showBio(index);
-                        handleUserInteraction();
                     };
                     if (index === 0) button.classList.add('active');
                     li.appendChild(button);
@@ -746,36 +1241,6 @@
             currentBioIndex = index;
         }
 
-        function startAutoRotate() {
-            // Clear any existing interval
-            if (autoRotateInterval) {
-                clearInterval(autoRotateInterval);
-            }
-
-            // Start new interval
-            autoRotateInterval = setInterval(() => {
-                currentBioIndex = (currentBioIndex + 1) % biographies.length; // Use actual length
-                showBio(currentBioIndex);
-            }, 5000); // 5 seconds
-        }
-
-        function handleUserInteraction() {
-            // Clear the auto-rotate interval
-            if (autoRotateInterval) {
-                clearInterval(autoRotateInterval);
-            }
-
-            // Clear any existing timeout
-            if (userInteractionTimeout) {
-                clearTimeout(userInteractionTimeout);
-            }
-
-            // Set a new timeout to resume auto-rotation after 10 seconds of inactivity
-            userInteractionTimeout = setTimeout(() => {
-                startAutoRotate();
-            }, 10000);
-        }
-
         // Updated Inventory functionality
         async function loadInventory() {
             try {
@@ -783,7 +1248,7 @@
                 const text = await response.text();
                 
                 // Parse the text file
-                const items = text.split('\n')
+                items = text.split('\n')
                     .filter(line => line.trim()) // Remove empty lines
                     .map(line => {
                         // Split by first three colons to get name, icon, and description
@@ -843,10 +1308,72 @@
                 li.appendChild(button);
                 inventoryNav.appendChild(li);
             });
+
+            // Update searchable content after inventory is loaded
+            collectSearchableContent();
+        }
+
+        function collectSearchableContent() {
+            searchableContent = [];
+
+            // About section
+            const aboutSection = document.querySelector('.content-section p');
+            if (aboutSection) {
+                searchableContent.push({
+                    section: 'About',
+                    text: aboutSection.textContent,
+                    element: aboutSection.closest('section')
+                });
+            }
+
+            // Biographies
+            biographies.forEach(bio => {
+                searchableContent.push({
+                    section: '人物档案',
+                    text: `${bio.name} ${bio.description}`,
+                    element: document.querySelector('.biography-section')
+                });
+            });
+
+            // Inventory items - include both names and descriptions
+            const inventoryItems = document.querySelectorAll('.inventory-nav button');
+            inventoryItems.forEach(button => {
+                const itemName = button.textContent.trim();
+                const item = items.find(i => i.name === itemName.replace(button.querySelector('.item-icon').textContent.trim(), '').trim());
+                if (item) {
+                    searchableContent.push({
+                        section: '调查记录',
+                        text: `${item.name} ${item.description}`,
+                        element: document.querySelector('.inventory-section')
+                    });
+                }
+            });
+
+            // Investigator cards
+            investigators.forEach(inv => {
+                const cardText = `${inv.name} ${inv.meta} ${inv.attrs.map(attr => attr.join(' ')).join(' ')} ${
+                    inv.equip.map(eq => `${eq.name} ${eq.details}`).join(' ')
+                } ${inv.abilitiesLeft.join(' ')} ${inv.abilitiesRight.join(' ')}`;
+                
+                searchableContent.push({
+                    section: '调查员',
+                    text: cardText,
+                    element: document.querySelector('.investigator-section')
+                });
+            });
         }
 
         function showItemDetails(item) {
             const itemContent = document.querySelector('.item-content');
+            
+            // Update active button state
+            const buttons = document.querySelectorAll('.inventory-nav button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.includes(item.name)) {
+                    button.classList.add('active');
+                }
+            });
             
             // Fade out current content
             itemContent.classList.add('fade-out');
@@ -888,7 +1415,7 @@
                 const text = await response.text();
                 // Split by horizontal line
                 const blocks = text.split(/^-{3,}$/m).map(b => b.trim()).filter(Boolean);
-                const investigators = blocks.map(block => {
+                investigators = blocks.map(block => {
                     const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
                     // Parse fields
                     const name = lines[0] || '';
@@ -948,13 +1475,355 @@
             `).join('');
         }
 
+        function renderInvestigatorCardsWithHighlight(investigators, query) {
+            const container = document.getElementById('investigatorCards');
+            container.innerHTML = investigators.map(inv => `
+                <div class="investigator-card">
+                    <h3>${highlightText(inv.name, query)}</h3>
+                    <div class="investigator-meta">${highlightText(inv.meta, query)}</div>
+                    <div class="investigator-attr-grid">
+                        ${inv.attrs.map(attr => `<div class="investigator-attr-cell">${highlightText(attr.join(' '), query)}</div>`).join('')}
+                    </div>
+                    <div class="investigator-equip"><strong>Equip:</strong> <span class="investigator-equip-list">
+                        ${inv.equip.map(eq => `
+                            <span class="investigator-equip-item">
+                                ${highlightText(eq.name, query)}
+                                ${eq.details ? `<span class='investigator-equip-tooltip'>${highlightText(eq.details, query)}</span>` : ''}
+                            </span>
+                        `).join(', ')}
+                    </span></div>
+                    <div class="investigator-abilities">
+                        <ul>
+                            ${inv.abilitiesLeft.map(a => `<li>${highlightText(a, query)}</li>`).join('')}
+                        </ul>
+                        <ul>
+                            ${inv.abilitiesRight.map(a => `<li>${highlightText(a, query)}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search functionality
+        function initializeSearch() {
+            const searchBox = document.querySelector('.search-box');
+            const searchResults = document.querySelector('.search-results');
+            
+            // Collect searchable content when the page loads
+            collectSearchableContent();
+
+            // Handle input changes
+            searchBox.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                handleSearch(query, searchResults);
+            });
+
+            // Handle Enter key press
+            searchBox.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = searchBox.value.trim();
+                    handleSearch(query, searchResults);
+                    
+                    // If there's exactly one result, trigger it automatically
+                    const results = document.querySelectorAll('.search-result-item');
+                    if (results.length === 1) {
+                        results[0].click();
+                    }
+                }
+            });
+        }
+
+        function handleSearch(query, searchResults) {
+            // Check minimum character requirement
+            if (!isValidSearchQuery(query)) {
+                searchResults.classList.remove('active');
+                return;
+            }
+
+            const results = searchContent(query);
+            displaySearchResults(results, query);
+        }
+
+        function isValidSearchQuery(query) {
+            // No character limit for Chinese text
+            if (/[\u4e00-\u9fa5]/.test(query)) {
+                return query.length > 0;
+            }
+            // Minimum 3 characters for English text
+            return query.length >= 3;
+        }
+
+        function searchContent(query) {
+            const results = [];
+            const queryLower = query.toLowerCase();
+
+            searchableContent.forEach(content => {
+                const textLower = content.text.toLowerCase();
+                const index = textLower.indexOf(queryLower);
+                
+                if (index !== -1) {
+                    // Get surrounding context (50 characters before and after)
+                    const start = Math.max(0, index - 50);
+                    const end = Math.min(content.text.length, index + query.length + 50);
+                    let matchText = content.text.substring(start, end);
+
+                    // Add ellipsis if necessary
+                    if (start > 0) matchText = '...' + matchText;
+                    if (end < content.text.length) matchText = matchText + '...';
+
+                    results.push({
+                        section: content.section,
+                        text: matchText,
+                        element: content.element,
+                        matchIndex: index - start + (start > 0 ? 3 : 0) // Adjust for ellipsis
+                    });
+                }
+            });
+
+            return results;
+        }
+
+        function displaySearchResults(results, query) {
+            const searchResults = document.querySelector('.search-results');
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">未找到相关内容</div>';
+                searchResults.classList.add('active');
+                return;
+            }
+
+            const resultsHtml = results.map(result => {
+                const beforeMatch = result.text.substring(0, result.matchIndex);
+                const match = result.text.substr(result.matchIndex, query.length);
+                const afterMatch = result.text.substring(result.matchIndex + query.length);
+
+                return `
+                    <div class="search-result-item" data-section="${result.section}" data-query="${encodeURIComponent(query)}">
+                        <div class="search-result-section">${result.section}</div>
+                        <div class="search-result-text">
+                            ${beforeMatch}<span class="search-result-highlight">${match}</span>${afterMatch}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            searchResults.innerHTML = resultsHtml;
+            searchResults.classList.add('active');
+
+            // Add click handlers for results
+            document.querySelectorAll('.search-result-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    const result = results[index];
+                    const element = result.element;
+                    const query = decodeURIComponent(item.dataset.query);
+                    
+                    // Scroll the outer scrollbar to the section
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Handle inner scrolling and content display based on section
+                    if (result.section === '人物档案') {
+                        // Find the matching biography
+                        const bioIndex = biographies.findIndex(bio => 
+                            bio.name === result.text.split(/[：:]/)[0].trim() || 
+                            result.text.includes(bio.name)
+                        );
+                        
+                        if (bioIndex !== -1) {
+                            // Find the button in the sidebar
+                            const sidebarNav = document.querySelector('.sidebar-nav');
+                            const button = sidebarNav.children[bioIndex].querySelector('button');
+                            
+                            // Scroll the inner scrollbar to the button
+                            button.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Show the biography content using existing function with highlight
+                            showBioWithHighlight(bioIndex, query);
+                        }
+                    } else if (result.section === '调查记录') {
+                        // Find the matching inventory item
+                        const itemName = result.text.split(/[：:]/)[0].trim();
+                        const matchingItem = items.find(item => 
+                            item.name === itemName || 
+                            result.text.includes(item.name)
+                        );
+                        
+                        if (matchingItem) {
+                            // Find the button in the sidebar
+                            const inventoryNav = document.querySelector('.inventory-nav');
+                            const buttons = inventoryNav.querySelectorAll('button');
+                            const button = Array.from(buttons).find(btn => 
+                                btn.textContent.includes(matchingItem.name)
+                            );
+                            
+                            if (button) {
+                                // Scroll the inner scrollbar to the button
+                                button.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                
+                                // Show the item details using existing function with highlight
+                                showItemDetailsWithHighlight(matchingItem, query);
+                            }
+                        }
+                    } else if (result.section === '调查员') {
+                        // Find the matching investigator
+                        const matchingInvestigator = investigators.find(inv => {
+                            const cardText = `${inv.name} ${inv.meta} ${inv.attrs.map(attr => attr.join(' ')).join(' ')} ${
+                                inv.equip.map(eq => `${eq.name} ${eq.details}`).join(' ')
+                            } ${inv.abilitiesLeft.join(' ')} ${inv.abilitiesRight.join(' ')}`;
+                            return cardText.toLowerCase().includes(query.toLowerCase());
+                        });
+
+                        // Re-render investigator cards with highlighted text
+                        renderInvestigatorCardsWithHighlight(investigators, query);
+
+                        // Find and scroll to the specific card
+                        if (matchingInvestigator) {
+                            setTimeout(() => {
+                                const cards = document.querySelectorAll('.investigator-card');
+                                const matchingCard = Array.from(cards).find(card => 
+                                    card.querySelector('h3').textContent.includes(matchingInvestigator.name)
+                                );
+                                if (matchingCard) {
+                                    matchingCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                                }
+                            }, 100); // Small delay to ensure rendering is complete
+                        }
+                    }
+                    
+                    // Hide search results
+                    searchResults.classList.remove('active');
+                });
+            });
+        }
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const queryLower = query.toLowerCase();
+            const textLower = text.toLowerCase();
+            const parts = [];
+            let lastIndex = 0;
+            let currentIndex = textLower.indexOf(queryLower);
+
+            while (currentIndex !== -1) {
+                // Add text before match
+                parts.push(text.substring(lastIndex, currentIndex));
+                // Add highlighted match
+                parts.push(`<span class="search-occurrence-highlight">${text.substring(currentIndex, currentIndex + query.length)}</span>`);
+                // Update indices
+                lastIndex = currentIndex + query.length;
+                currentIndex = textLower.indexOf(queryLower, lastIndex);
+            }
+            // Add remaining text
+            parts.push(text.substring(lastIndex));
+            return parts.join('');
+        }
+
+        function showBioWithHighlight(index, query) {
+            if (!biographies[index]) return;
+
+            // Update active button
+            const buttons = document.querySelectorAll('.sidebar-nav button');
+            buttons.forEach(button => button.classList.remove('active'));
+            buttons[index].classList.add('active');
+
+            // Fade out current content
+            const bioContent = document.querySelector('.bio-content');
+            bioContent.classList.add('fade-out');
+
+            // Wait for fade out, then update content and fade in
+            setTimeout(async () => {
+                const paragraphs = biographies[index].description.split('##').map(p => p.trim());
+                const avatarUrl = await getAvatarUrl(biographies[index].name);
+                
+                bioContent.innerHTML = `
+                    <div class="bio-image">
+                        ${avatarUrl ? 
+                            `<img src="${avatarUrl}" alt="${biographies[index].name}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">` :
+                            biographies[index].name.charAt(0)
+                        }
+                    </div>
+                    <h2>${highlightText(biographies[index].name, query)}</h2>
+                    ${paragraphs.map(p => `<p>${highlightText(p, query)}</p>`).join('')}
+                `;
+                bioContent.classList.remove('fade-out');
+            }, 300);
+
+            currentBioIndex = index;
+        }
+
+        function showItemDetailsWithHighlight(item, query) {
+            const itemContent = document.querySelector('.item-content');
+            
+            // Update active button state
+            const buttons = document.querySelectorAll('.inventory-nav button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.includes(item.name)) {
+                    button.classList.add('active');
+                }
+            });
+            
+            // Fade out current content
+            itemContent.classList.add('fade-out');
+
+            // Wait for fade out, then update content and fade in
+            setTimeout(() => {
+                const descriptionParagraphs = item.description.split('##').map(p => p.trim());
+                
+                itemContent.innerHTML = `
+                    <div class="item-header">
+                        <span class="item-icon">${item.icon}</span>
+                        <h3 class="item-title">${highlightText(item.name, query)}</h3>
+                    </div>
+                    ${descriptionParagraphs.map(p => `<p class="item-description">${highlightText(p, query)}</p>`).join('')}
+                    ${item.details.length > 0 ? `
+                        <div class="item-details">
+                            <table>
+                                <tbody>
+                                    ${item.details.map(detail => `
+                                        <tr>
+                                            <td class="detail-label">${highlightText(detail.key, query)}</td>
+                                            <td class="detail-value">${highlightText(detail.value, query)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    ` : ''}
+                `;
+                itemContent.classList.remove('fade-out');
+            }, 300);
+        }
+
         // Initialize the page
         window.onload = function() {
-            loadBiographies();
-            startAutoRotate();
-            loadInventory();
-            loadInvestigators();
+            Promise.all([
+                loadBiographies(),
+                loadInventory(),
+                loadInvestigators()
+            ]).then(() => {
+                initializeSearch();
+                initializeMapSwitch();
+            });
         };
+
+        // Add map switching functionality
+        function initializeMapSwitch() {
+            const mapContainer = document.querySelector('.map-container');
+            const topMap = mapContainer.querySelector('.map-image.top');
+            const bottomMap = mapContainer.querySelector('.map-image.bottom');
+
+            mapContainer.addEventListener('click', () => {
+                // Swap src attributes
+                const tempSrc = topMap.src;
+                const tempAlt = topMap.alt;
+                
+                topMap.src = bottomMap.src;
+                topMap.alt = bottomMap.alt;
+                
+                bottomMap.src = tempSrc;
+                bottomMap.alt = tempAlt;
+            });
+        }
     </script>
 </body>
 </html>
